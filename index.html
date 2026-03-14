@@ -11,7 +11,7 @@
     <meta name="robots" content="index, follow">
 
     <meta property="og:title" content="DigitalBud | Фасади та Покрівля">
-    <meta property="og:description" content="Надійність на висоті. Вентильовані фасади, покрівельні роботи та властне виробництво.">
+    <meta property="og:description" content="Надійність на висоті. Вентильовані фасади, покрівельні роботи та власне виробництво GBUD.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://digitalbud.com.ua/">
     <meta property="og:image" content="https://digitalbud.com.ua/hero.jpg">
@@ -19,9 +19,26 @@
     <link rel="canonical" href="https://digitalbud.com.ua/" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
+    <link rel="preload" as="image" href="hero.jpg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ConstructionBusiness",
+      "name": "DigitalBud",
+      "url": "https://digitalbud.com.ua/",
+      "logo": "https://digitalbud.com.ua/hero.jpg",
+      "description": "Професійний монтаж фасадних систем НВФ СПОК, покрівельні роботи будь-якої складності.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "UA"
+      }
+    }
+    </script>
 
     <style>
         :root {
@@ -35,6 +52,12 @@
         html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+        /* 3. Кастомний скроллбар */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
         header {
             padding: 20px;
@@ -77,13 +100,25 @@
         h2 { font-size: 2rem; margin-bottom: 40px; text-align: center; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
 
-        .card { background: var(--card-bg); padding: 35px; padding-top: 55px; border-radius: 12px; border: 1px solid #222; transition: 0.3s; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .card { background: var(--card-bg); padding: 35px; padding-top: 55px; border-radius: 12px; border: 1px solid #222; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
         .badge { position: absolute; top: 14px; right: 14px; font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; }
         .badge-gbud { color: var(--primary); border: 1px solid var(--primary); }
         .badge-lab { color: #4ade80; border: 1px solid #4ade80; }
         .card h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.3rem; text-transform: uppercase; padding-right: 60px; }
         .card p { font-size: 0.95rem; color: #ccc; margin-bottom: 20px; }
         
+        /* 4. Класи для анімації появи (Fade-in) */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* КОНТАКТИ */
         .contacts {
             background: #111;
@@ -153,7 +188,8 @@
 
         @media (hover: hover) {
             .btn:hover, .header-btn:hover { background: var(--primary); color: #000; box-shadow: 0 0 15px rgba(255,215,0,0.4); }
-            .card:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+            /* Адаптований hover для карток, щоб не конфліктував з fade-in */
+            .card.visible:hover { border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
             .contacts a:hover { color: #fff; }
             .contact-form button:hover { background: var(--primary); color: #000; }
         }
@@ -187,17 +223,17 @@
     </header>
 
     <main>
-        <section class="hero">
+        <section class="hero fade-in visible">
             <h1>Надійність на <span>Висоті</span></h1>
             <p>Фасади та покрівлі будь-якої складності з практичним досвідом та індивідуальним підходом</p>
             <a href="#contacts" class="btn">Зв'язатися</a>
         </section>
 
         <section id="services">
-            <h2>Напрямки робіт</h2>
+            <h2 class="fade-in">Напрямки робіт</h2>
             <div class="grid">
 
-                <div class="card">
+                <div class="card fade-in">
                     <span class="badge badge-gbud">GBUD</span>
                     <div>
                         <h3>Вентильований фасад НВФ Спок</h3>
@@ -206,7 +242,7 @@
                     <a href="fasadi.html" class="btn btn-sm">Детальніше</a>
                 </div>
 
-                <div class="card">
+                <div class="card fade-in" style="transition-delay: 0.1s;">
                     <span class="badge badge-gbud">GBUD</span>
                     <div>
                         <h3>Покрівельні роботи</h3>
@@ -215,7 +251,7 @@
                     <a href="pokrivlya.html" class="btn btn-sm">Детальніше</a>
                 </div>
 
-                <div class="card">
+                <div class="card fade-in" style="transition-delay: 0.2s;">
                     <span class="badge badge-lab">LAB</span>
                     <div>
                         <h3>PropTech GBUD</h3>
@@ -224,7 +260,7 @@
                     <a href="https://proptech.com.ua" class="btn btn-sm" target="_blank" rel="noopener noreferrer">Перейти в Lab</a>
                 </div>
 
-                <div class="card">
+                <div class="card fade-in" style="transition-delay: 0.3s;">
                     <span class="badge badge-gbud">GBUD</span>
                     <div>
                         <h3>Галерея робіт</h3>
@@ -237,15 +273,15 @@
         </section>
 
         <section id="contacts">
-            <h2>Контакти</h2>
-            <div class="contacts">
+            <h2 class="fade-in">Контакти</h2>
+            <div class="contacts fade-in">
                 <p>Прямий зв'язок з майстром:</p>
                 <div id="contact-email">
                     <noscript>Увімкніть JavaScript щоб побачити email.</noscript>
                 </div>
             </div>
 
-            <form class="contact-form" id="contact-form" action="https://formspree.io/f/xzdjpwjj" method="POST">
+            <form class="contact-form fade-in" id="contact-form" action="https://formspree.io/f/xzdjpwjj" method="POST">
                 <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
                 <input type="text" name="name" placeholder="Ваше ім'я" required aria-label="Ваше ім'я">
                 <input type="tel" name="phone" placeholder="Номер телефону" required aria-label="Номер телефону">
@@ -277,7 +313,7 @@
         // Автооновлення року
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Обробка форми без перезавантаження сторінки з обробкою помилок
+        // Обробка форми без перезавантаження
         var form = document.getElementById('contact-form');
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -295,6 +331,31 @@
                 }
             }).catch(function(error) {
                 alert("Помилка з'єднання. Перевірте підключення до інтернету.");
+            });
+        });
+
+        // Магія плавної появи елементів при скролінгу (Intersection Observer)
+        document.addEventListener("DOMContentLoaded", function() {
+            var faders = document.querySelectorAll('.fade-in');
+            
+            var appearOptions = {
+                threshold: 0.15, // Елемент з'явиться, коли 15% його буде на екрані
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            var appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('visible');
+                        appearOnScroll.unobserve(entry.target); // Припиняємо спостерігати після появи
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(function(fader) {
+                appearOnScroll.observe(fader);
             });
         });
     </script>
