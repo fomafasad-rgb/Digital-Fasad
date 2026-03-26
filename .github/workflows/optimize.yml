@@ -19,10 +19,11 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
+      - name: Install ImageMagick
+        run: sudo apt-get update && sudo apt-get install -y imagemagick
+
       - name: Optimize Images
         run: |
-          # Використовуємо вбудований інструмент для стиснення JPG та PNG
-          # Якість 80%, видалення зайвих даних (метаданих)
           find . -type f \( -name "*.jpg" -o -name "*.jpeg" \) -exec mogrify -quality 80 -strip {} +
           find . -type f -name "*.png" -exec mogrify -strip {} +
 
