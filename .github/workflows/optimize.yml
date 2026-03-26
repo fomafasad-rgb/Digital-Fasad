@@ -24,9 +24,8 @@ jobs:
 
       - name: Optimize Images
         run: |
-          # Якість 92%, максимум 2560px — чітко на будь-якому телефоні
-          find . -type f \( -name "*.jpg" -o -name "*.jpeg" \) -exec mogrify -resize "2560x2560>" -quality 92 -strip {} +
-          find . -type f -name "*.png" -exec mogrify -resize "2560x2560>" -strip {} +
+          find . -type f \( -name "*.jpg" -o -name "*.jpeg" \) -exec mogrify -auto-orient -resize "2560x2560>" -quality 92 -strip {} +
+          find . -type f -name "*.png" -exec mogrify -auto-orient -resize "2560x2560>" -strip {} +
 
       - name: Commit and Push changes
         uses: stefanzweifel/git-auto-commit-action@v5
