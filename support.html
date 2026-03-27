@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SUPPORT | GBUD.DIGITAL | Логістика та Матеріали</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FFD700;
+            --bg: #050505;
+            --card-bg: rgba(20, 20, 20, 0.8);
+            --grid: rgba(255, 215, 0, 0.05);
+            --glow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: var(--bg); color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            overflow-x: hidden; line-height: 1.6;
+        }
+
+        #bg-canvas { position: fixed; inset: 0; z-index: -1; opacity: 0.5; }
+        .scanner-line {
+            position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+            background: var(--primary); box-shadow: 0 0 15px var(--primary);
+            animation: scan 4s linear infinite; opacity: 0.3;
+        }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        header {
+            padding: 20px; background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(15px); border-bottom: 1px solid var(--grid);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.4rem; color: var(--primary); text-decoration: none; letter-spacing: 2px; }
+        .btn-back {
+            color: var(--primary); text-decoration: none; font-size: 0.7rem; 
+            border: 1px solid var(--primary); padding: 5px 15px; border-radius: 4px;
+            font-weight: 700; text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-back:hover { background: var(--primary); color: #000; box-shadow: var(--glow); }
+
+        section { padding: 120px 20px 60px; max-width: 1200px; margin: 0 auto; }
+        .hero-title { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 5vw, 3.5rem); color: var(--primary); text-transform: uppercase; margin-bottom: 20px; text-align: center; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .card { 
+            background: var(--card-bg); border: 1px solid var(--grid); 
+            padding: 40px; position: relative; transition: 0.4s;
+        }
+        .card:hover { border-color: var(--primary); background: rgba(255, 215, 0, 0.03); }
+        .card h3 { font-family: 'Orbitron', sans-serif; color: var(--primary); margin-bottom: 15px; font-size: 1.2rem; text-transform: uppercase; }
+        .card p { color: #888; font-size: 0.9rem; }
+        .status { position: absolute; top: 15px; right: 20px; font-size: 0.6rem; color: var(--primary); opacity: 0.6; }
+
+        .form-box { 
+            background: rgba(20, 20, 20, 0.9); border: 1px solid var(--primary);
+            padding: 40px; margin-top: 60px; border-radius: 4px; box-shadow: var(--glow);
+        }
+        input, textarea {
+            width: 100%; padding: 15px; background: #000; border: 1px solid #333;
+            color: #fff; font-family: inherit; margin-bottom: 20px; outline: none;
+        }
+        input:focus { border-color: var(--primary); }
+        .btn-send {
+            width: 100%; padding: 15px; background: transparent; border: 1px solid var(--primary);
+            color: var(--primary); font-family: 'Orbitron', sans-serif; font-weight: 700;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        }
+        .btn-send:hover { background: var(--primary); color: #000; box-shadow: var(--glow); }
+
+        footer { padding: 40px; text-align: center; color: #333; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    <div class="scanner-line"></div>
+
+    <header>
+        <div class="nav">
+            <a href="index.html" class="logo">GBUD.DIGITAL</a>
+            <a href="index.html" class="btn-back">[ НАЗАД ]</a>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div style="text-align: center; font-size: 0.7rem; color: var(--primary); letter-spacing: 4px; margin-bottom: 10px;">[ SUPPORT MODULE ACTIVE ]</div>
+            <h1 class="hero-title">Material & Logistics</h1>
+            <p style="text-align: center; color: #888; max-width: 700px; margin: 0 auto;">Повний супровід вашого проекту: від вибору правильного металу до доставки готових виробів на об'єкт по всій Україні.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="status">[ EXPERT ]</div>
+                    <h3>Допомога з вибором</h3>
+                    <p>Консультуємо щодо підбору товщини (0.45 - 0.7 мм), типу покриття (мат, глянець, пурал) та виробника металу під ваші технічні вимоги та бюджет.</p>
+                </div>
+                <div class="card">
+                    <div class="status">[ LOGISTICS ]</div>
+                    <h3>Доставка по Україні</h3>
+                    <p>Організовуємо логістику: відправка Новою Поштою, Делівері або пошук попутного вантажу для великогабаритних замовлень у будь-яку точку країни.</p>
+                </div>
+                <div class="card">
+                    <div class="status">[ SERVICE ]</div>
+                    <h3>Вантажні роботи</h3>
+                    <p>Забезпечуємо професійне навантаження та вивантаження спецвиробів. Контролюємо цілісність пакування та геометрії при транспортуванні.</p>
+                </div>
+            </div>
+
+            <div class="form-box">
+                <h3 style="font-family: 'Orbitron', sans-serif; color: var(--primary); margin-bottom: 25px; text-align: center;">ЗАПИТАТИ ПІДТРИМКУ</h3>
+                <form action="https://formspree.io/f/xzdjpwjj" method="POST">
+                    <input type="text" name="name" placeholder="ВАШЕ ІМ'Я" required>
+                    <input type="tel" name="phone" placeholder="НОМЕР ТЕЛЕФОНУ" required>
+                    <textarea name="message" rows="4" placeholder="ЩО ВАС ЦІКАВИТЬ? (МАТЕРІАЛ, ДОСТАВКА, ВАНТАЖНИКИ)"></textarea>
+                    <button type="submit" class="btn-send">ВІДПРАВИТИ ЗАПИТ</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 GBUD.DIGITAL | SYSTEM SUPPORT | ALL RIGHTS RESERVED
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, dots = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        for(let i=0; i<80; i++) dots.push({ x: Math.random()*width, y: Math.random()*height, vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3 });
+
+        function draw() {
+            ctx.clearRect(0,0,width,height);
+            ctx.fillStyle = 'rgba(255, 215, 0, 0.3)';
+            ctx.strokeStyle = 'rgba(255, 215, 0, 0.05)';
+            dots.forEach(d => {
+                d.x += d.vx; d.y += d.vy;
+                if(d.x<0 || d.x>width) d.vx*=-1;
+                if(d.y<0 || d.y>height) d.vy*=-1;
+                ctx.beginPath(); ctx.arc(d.x, d.y, 1, 0, Math.PI*2); ctx.fill();
+            });
+            for(let i=0; i<dots.length; i++) {
+                for(let j=i+1; j<dots.length; j++) {
+                    let dist = Math.hypot(dots[i].x - dots[j].x, dots[i].y - dots[j].y);
+                    if(dist < 150) { ctx.beginPath(); ctx.moveTo(dots[i].x, dots[i].y); ctx.lineTo(dots[j].x, dots[j].y); ctx.stroke(); }
+                }
+            }
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>
