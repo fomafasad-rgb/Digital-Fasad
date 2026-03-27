@@ -43,6 +43,14 @@
         .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.5rem; color: var(--primary); text-decoration: none; letter-spacing: 2px; }
         .logo span { color: #fff; font-size: 0.8rem; vertical-align: middle; margin-left: 5px; opacity: 0.7; }
 
+        /* Кнопка повернення */
+        .btn-back {
+            color: var(--primary); text-decoration: none; font-size: 0.65rem; text-transform: uppercase; 
+            border: 1px solid var(--primary); padding: 5px 10px; border-radius: 4px; transition: 0.3s;
+            font-weight: 700; letter-spacing: 1px;
+        }
+        .btn-back:hover { background: var(--primary); color: #000; box-shadow: var(--glow); }
+
         .nav-links { display: flex; gap: 25px; }
         .nav-links a { color: #fff; text-decoration: none; font-size: 0.8rem; text-transform: uppercase; font-weight: 500; transition: 0.3s; opacity: 0.7; }
         .nav-links a:hover { color: var(--primary); opacity: 1; text-shadow: var(--glow); }
@@ -140,7 +148,10 @@
 
     <header>
         <div class="container nav">
-            <a href="#" class="logo">GBUD.DIGITAL</a>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <a href="index.html" class="logo">GBUD.DIGITAL</a>
+                <a href="index.html" class="btn-back">[ НАЗАД ]</a>
+            </div>
             <button class="menu-toggle" id="menuBtn">☰</button>
             <nav class="nav-links" id="navMenu">
                 <a href="#home">Terminal</a>
@@ -263,7 +274,7 @@
                     </div>
                     <div class="contact-item">
                         <h3>Digital</h3>
-                        <a href="https://t.me/@digitalbud">Telegram @digitalbud</a>
+                        <a href="https://t.me/digitalbud">Telegram @digitalbud</a>
                     </div>
                 </div>
             </div>
@@ -332,7 +343,8 @@
 
         function sendToTelegram() {
             let msg = `🔥 Нове замовлення:%0AВиріб: ${pType.options[pType.selectedIndex].text}%0AТовщина: ${pThickness.options[pThickness.selectedIndex].text}%0AКолір: ${pColor.value}%0AРозмір: ${pLen.value}м x ${pWidth.value}мм%0AСума: ${tPrice.innerText}`;
-            window.location.href = `https://t.me/твій_нік?text=${msg}`;
+            // Виправлено посилання
+            window.location.href = `https://t.me/digitalbud?text=${msg}`;
         }
 
         // Mobile Menu
