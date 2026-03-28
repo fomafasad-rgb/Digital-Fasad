@@ -14,7 +14,7 @@
             --accent: #FF8C00;
             --grid: rgba(255, 215, 0, 0.05);
             --glow: 0 0 15px rgba(255, 215, 0, 0.3);
-            --radius: 8px;
+            --radius: 12px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -32,7 +32,6 @@
         }
 
         #bg-canvas { position: fixed; inset: 0; z-index: -1; opacity: 0.5; }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
         header {
@@ -94,22 +93,93 @@
         .price { font-size: 1.5rem; font-weight: 900; color: #fff; margin-bottom: 20px; }
 
         .calc-box {
-            background: rgba(20, 20, 20, 0.9); border: 1px solid var(--primary);
-            padding: 50px; border-radius: var(--radius); max-width: 900px; margin: 0 auto;
-            position: relative; box-shadow: var(--glow);
+            background: rgba(12, 12, 12, 0.95);
+            border: 1px solid var(--grid);
+            padding: 36px;
+            border-radius: 16px;
+            max-width: 980px;
+            margin: 0 auto;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5);
         }
-        .calc-box::before { content: "[ TERMINAL ACTIVE ]"; position: absolute; top: 10px; left: 20px; font-size: 0.6rem; color: var(--primary); }
 
-        .calc-row { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 30px; }
-        .calc-col { flex: 1; min-width: 200px; }
-        .calc-col label { display: block; margin-bottom: 12px; font-size: 0.75rem; text-transform: uppercase; color: #666; letter-spacing: 1px; }
-        .calc-col input, .calc-col select {
-            width: 100%; padding: 15px; background: #000; border: 1px solid #333;
-            color: #fff; font-family: inherit; font-size: 1rem; border-radius: 4px; outline: none; transition: 0.3s;
+        .calc-top {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+            margin-bottom: 28px;
         }
-        .calc-col input:focus, .calc-col select:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
-        .calc-result { text-align: center; padding-top: 30px; border-top: 1px solid var(--grid); }
-        #totalPrice { font-family: 'Orbitron', sans-serif; font-size: 4rem; color: var(--primary); margin: 15px 0; }
+
+        .price-card {
+            background: rgba(20,20,20,0.9);
+            border: 1px solid var(--grid);
+            border-radius: 14px;
+            padding: 24px;
+            display: grid;
+            gap: 12px;
+        }
+        .price-title { font-size: 0.75rem; color: #777; letter-spacing: 2px; text-transform: uppercase; }
+        .price-value { font-family: 'Orbitron', sans-serif; font-size: 3.2rem; color: var(--primary); }
+        .price-sub { color: #888; font-size: 0.9rem; }
+
+        .summary {
+            background: rgba(20,20,20,0.9);
+            border: 1px solid var(--grid);
+            border-radius: 14px;
+            padding: 24px;
+            display: grid;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+        .summary b { color: #fff; font-weight: 600; }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(200px, 1fr));
+            gap: 18px;
+        }
+
+        .field {
+            background: rgba(20,20,20,0.9);
+            border: 1px solid #1f1f1f;
+            border-radius: 12px;
+            padding: 14px;
+            display: grid;
+            gap: 10px;
+        }
+        .field label {
+            font-size: 0.7rem; color: #777; letter-spacing: 2px; text-transform: uppercase;
+        }
+        .field select, .field input {
+            width: 100%; padding: 12px; background: #000; border: 1px solid #333;
+            color: #fff; font-family: inherit; font-size: 1rem; border-radius: 8px; outline: none;
+        }
+        .field input:focus, .field select:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+
+        .range {
+            display: grid;
+            gap: 8px;
+        }
+        .range input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+        }
+        .range-values {
+            display: flex; justify-content: space-between; color: #777; font-size: 0.75rem;
+        }
+
+        .calc-actions {
+            margin-top: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .btn-secondary {
+            display: inline-block; padding: 12px 20px; border: 1px solid #333;
+            color: #bbb; background: transparent; font-family: 'Orbitron', sans-serif;
+            text-decoration: none; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; cursor: pointer;
+        }
+        .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
 
         .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .contact-item { 
@@ -123,9 +193,13 @@
 
         footer { padding: 40px; text-align: center; border-top: 1px solid var(--grid); color: #333; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
 
+        @media (max-width: 980px) {
+            .calc-top { grid-template-columns: 1fr; }
+            .calc-grid { grid-template-columns: 1fr; }
+        }
         @media (max-width: 860px) {
             .hero h1 { font-size: 2.5rem; }
-            .calc-box { padding: 30px 20px; }
+            .calc-box { padding: 24px; }
         }
     </style>
 </head>
@@ -145,7 +219,7 @@
         <section class="hero" id="home">
             <div class="container">
                 <div style="font-size: 0.7rem; color: var(--primary); margin-bottom: 15px; letter-spacing: 3px;">[ SYSTEM INITIALIZED ]</div>
-                <h1>PRECISION <span>BENDING</span></h1>
+                <h1>Точне <span>Гнуття</span></h1>
                 <p>Індивідуальне гнуття металу на станках Tapco. Створення спецвиробив з ідеальною геометрією за 24 години.</p>
                 <a href="#calculator" class="btn">Запустити розрахунок</a>
             </div>
@@ -188,12 +262,21 @@
         <section id="calculator">
             <div class="container">
                 <div class="section-title">
-                    <h2>Розрахунок <span>Вартісті</span></h2>
-                    <p>Орієнтовна ціна, середні значення по ринку</p>
+                    <h2>Розрахунок <span>Вартості</span></h2>
                 </div>
+
                 <div class="calc-box">
-                    <div class="calc-row">
-                        <div class="calc-col">
+                    <div class="calc-top">
+                        <div class="price-card">
+                            <div class="price-title">Орієнтовна сума</div>
+                            <div id="totalPrice" class="price-value">0 ₴</div>
+                            <div class="price-sub">Розрахунок за площею розгортки</div>
+                        </div>
+                        <div class="summary" id="summaryBox"></div>
+                    </div>
+
+                    <div class="calc-grid">
+                        <div class="field">
                             <label>Виріб</label>
                             <select id="prodType">
                                 <option value="parapet">Парапет</option>
@@ -201,7 +284,8 @@
                                 <option value="special">Спецвиріб</option>
                             </select>
                         </div>
-                        <div class="calc-col">
+
+                        <div class="field">
                             <label>Покриття</label>
                             <select id="coating">
                                 <option value="gloss">Полімер глянець</option>
@@ -209,7 +293,8 @@
                                 <option value="zinc">Оцинковка</option>
                             </select>
                         </div>
-                        <div class="calc-col">
+
+                        <div class="field">
                             <label>Товщина</label>
                             <select id="thickness">
                                 <option value="0.45">0.45 мм</option>
@@ -217,17 +302,8 @@
                                 <option value="0.7">0.70 мм</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="calc-row">
-                        <div class="calc-col">
-                            <label>Довжина (м)</label>
-                            <input type="number" id="len" value="1" step="0.1" min="0">
-                        </div>
-                        <div class="calc-col">
-                            <label>Ширина розгортки (мм)</label>
-                            <input type="number" id="width" value="250" step="10" min="0">
-                        </div>
-                        <div class="calc-col">
+
+                        <div class="field">
                             <label>Колір</label>
                             <select id="color">
                                 <option value="ral7024">RAL 7024 (Graphite)</option>
@@ -237,13 +313,45 @@
                                 <option value="ral3005">RAL 3005 (Wine Red)</option>
                                 <option value="ral6005">RAL 6005 (Green)</option>
                                 <option value="ral8019">RAL 8019 (Grey Brown)</option>
-                                <option value="zinc">Оцинковка (без кольору)</option>
+                                <option value="ral9006">RAL 9006 (Silver)</option>
+                                <option value="ral7016">RAL 7016 (Anthracite)</option>
+                                <option value="ral1015">RAL 1015 (Ivory)</option>
+                                <option value="ral5005">RAL 5005 (Blue)</option>
+                                <option value="ral3009">RAL 3009 (Oxide Red)</option>
+                                <option value="ral7035">RAL 7035 (Light Grey)</option>
+                                <option value="ral8004">RAL 8004 (Copper Brown)</option>
+                                <option value="ral6011">RAL 6011 (Reseda Green)</option>
+                                <option value="ral5002">RAL 5002 (Ultramarine)</option>
+                                <option value="ral7040">RAL 7040 (Window Grey)</option>
+                                <option value="ral6020">RAL 6020 (Chromium Green)</option>
+                                <option value="ral8011">RAL 8011 (Nut Brown)</option>
+                                <option value="ral9007">RAL 9007 (Grey Aluminium)</option>
+                                <option value="zinc">Оцинковка</option>
                             </select>
                         </div>
+
+                        <div class="field">
+                            <label>Довжина (м)</label>
+                            <div class="range">
+                                <input type="range" id="lenRange" min="1" max="3" step="1" value="3">
+                                <div class="range-values"><span>1</span><span id="lenValue">3</span><span>3</span></div>
+                                <input type="number" id="len" value="3" step="1" min="1" max="3">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Ширина розгортки (мм)</label>
+                            <div class="range">
+                                <input type="range" id="widthRange" min="100" max="1250" step="10" value="250">
+                                <div class="range-values"><span>100</span><span id="widthValue">250</span><span>1250</span></div>
+                                <input type="number" id="width" value="250" step="10" min="50">
+                            </div>
+                        </div>
                     </div>
-                    <div class="calc-result">
-                        <div id="totalPrice">0 ₴</div>
+
+                    <div class="calc-actions">
                         <button onclick="sendToTelegram()" class="btn">Відправити замовлення у Telegram</button>
+                        <button onclick="resetCalc()" class="btn-secondary">Скинути</button>
                     </div>
                 </div>
             </div>
@@ -257,7 +365,7 @@
                 <div class="contact-grid">
                     <div class="contact-item">
                         <h3>Локація</h3>
-                        <p>Kyiv та Київська обл.</p>
+                        <p>Київ та Київська обл.</p>
                     </div>
                     <div class="contact-item">
                         <h3>Зв'язок</h3>
@@ -330,6 +438,19 @@
             ral3005: { name: "RAL 3005", k: 1.07 },
             ral6005: { name: "RAL 6005", k: 1.07 },
             ral8019: { name: "RAL 8019", k: 1.03 },
+            ral9006: { name: "RAL 9006", k: 1.06 },
+            ral7016: { name: "RAL 7016", k: 1.04 },
+            ral1015: { name: "RAL 1015", k: 1.05 },
+            ral5005: { name: "RAL 5005", k: 1.06 },
+            ral3009: { name: "RAL 3009", k: 1.06 },
+            ral7035: { name: "RAL 7035", k: 1.03 },
+            ral8004: { name: "RAL 8004", k: 1.05 },
+            ral6011: { name: "RAL 6011", k: 1.04 },
+            ral5002: { name: "RAL 5002", k: 1.06 },
+            ral7040: { name: "RAL 7040", k: 1.03 },
+            ral6020: { name: "RAL 6020", k: 1.04 },
+            ral8011: { name: "RAL 8011", k: 1.04 },
+            ral9007: { name: "RAL 9007", k: 1.05 },
             zinc:    { name: "Оцинковка", k: 1.00 }
         };
 
@@ -338,12 +459,32 @@
         const thickness = document.getElementById('thickness');
         const len = document.getElementById('len');
         const widthInput = document.getElementById('width');
+        const lenRange = document.getElementById('lenRange');
+        const widthRange = document.getElementById('widthRange');
+        const lenValue = document.getElementById('lenValue');
+        const widthValue = document.getElementById('widthValue');
         const color = document.getElementById('color');
         const totalPrice = document.getElementById('totalPrice');
+        const summaryBox = document.getElementById('summaryBox');
+
+        function clampLen(val) {
+            const n = Math.round(parseFloat(val) || 1);
+            return Math.min(3, Math.max(1, n));
+        }
+
+        function syncInputs() {
+            const fixedLen = clampLen(len.value);
+            len.value = fixedLen;
+            lenRange.value = fixedLen;
+            lenValue.textContent = fixedLen;
+            widthRange.value = widthInput.value;
+            widthValue.textContent = widthInput.value;
+        }
 
         function calc() {
             const l = parseFloat(len.value) || 0;
-            const w = (parseFloat(widthInput.value) || 0) / 1000;
+            const wmm = parseFloat(widthInput.value) || 0;
+            const w = wmm / 1000;
             const area = l * w;
 
             const mat = materials[coating.value];
@@ -351,12 +492,35 @@
             const colorK = colors[color.value] ? colors[color.value].k : 1;
 
             let total = Math.ceil(area * mat.base * thickK * colorK);
-
             if (total > 0 && total < 150) total = 150;
+
             totalPrice.textContent = total + " ₴";
+
+            summaryBox.innerHTML = `
+                <div><b>Площа:</b> ${area.toFixed(2)} м²</div>
+                <div><b>Матеріал:</b> ${mat.name}</div>
+                <div><b>Товщина:</b> ${thickness.value} мм</div>
+                <div><b>Колір:</b> ${colors[color.value].name}</div>
+            `;
         }
 
-        [prodType, coating, thickness, len, widthInput, color].forEach(el => el.addEventListener('input', calc));
+        function resetCalc() {
+            prodType.value = "parapet";
+            coating.value = "gloss";
+            thickness.value = "0.45";
+            color.value = "ral7024";
+            len.value = 3;
+            widthInput.value = 250;
+            syncInputs();
+            calc();
+        }
+
+        lenRange.addEventListener('input', () => { len.value = lenRange.value; syncInputs(); calc(); });
+        len.addEventListener('input', () => { syncInputs(); calc(); });
+        widthRange.addEventListener('input', () => { widthInput.value = widthRange.value; syncInputs(); calc(); });
+        [prodType, coating, thickness, widthInput, color].forEach(el => el.addEventListener('input', () => { syncInputs(); calc(); }));
+
+        syncInputs();
         calc();
 
         function sendToTelegram() {
