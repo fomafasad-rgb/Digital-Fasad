@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -8,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FFD700; /* Золото */
+            --primary: #FFD700;
             --bg: #050505;
             --card-bg: rgba(20, 20, 20, 0.8);
             --accent: #FF8C00;
@@ -26,20 +27,20 @@
             overflow-x: hidden;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            text-rendering: auto;
+            font-synthesis: none;
+            -webkit-text-size-adjust: 100%;
         }
 
-        /* Кастомний скроллбар */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-        /* Canvas Background */
         #bg-canvas { position: fixed; inset: 0; z-index: -1; opacity: 0.5; }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* Header */
         header {
             padding: 20px 0;
             background: rgba(5, 5, 5, 0.9);
@@ -49,9 +50,8 @@
         }
         .nav { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.5rem; color: var(--primary); text-decoration: none; letter-spacing: 2px; transition: 0.3s; }
-        .logo:hover { text-shadow: var(--glow); }
+        .logo:hover { text-shadow: none; }
         
-        /* Кнопка повернення (Зменшена, як ти просив) */
         .btn-back {
             color: var(--primary); text-decoration: none; font-size: 0.65rem; text-transform: uppercase; 
             border: 1px solid var(--primary); padding: 5px 10px; border-radius: 4px; transition: 0.3s;
@@ -59,7 +59,6 @@
         }
         .btn-back:hover { background: var(--primary); color: #000; box-shadow: var(--glow); }
 
-        /* Hero Секція */
         .hero {
             padding: 150px 0 60px; display: flex; flex-direction: column; align-items: center;
             text-align: center; position: relative; border-bottom: 1px solid var(--grid);
@@ -71,11 +70,10 @@
         }
         @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
 
-        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 6vw, 4.5rem); text-transform: uppercase; color: var(--primary); margin-bottom: 10px; text-shadow: var(--glow); }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 6vw, 4.5rem); text-transform: uppercase; color: var(--primary); margin-bottom: 10px; text-shadow: none; }
         .hero h1 span { color: #fff; }
         .hero p { max-width: 800px; margin: 0 auto; color: #aaa; font-size: 1.1rem; }
 
-        /* Галерея */
         section { padding: 60px 0; }
         
         .gallery-grid {
@@ -119,7 +117,6 @@
         }
         .gallery-item:hover .gallery-caption { transform: translateY(0); }
 
-        /* --- LIGHTBOX (Модальне вікно) --- */
         .modal {
             display: none; position: fixed; z-index: 2000; padding-top: 50px;
             left: 0; top: 0; width: 100%; height: 100%; overflow: hidden;
@@ -148,7 +145,6 @@
         }
         .close:hover { color: #fff; transform: scale(1.1) rotate(90deg); text-shadow: var(--glow); }
 
-        /* Кнопка CTA */
         .cta-container { text-align: center; margin-top: 60px; }
         .btn-cta {
             display: inline-block; padding: 16px 40px; border: 1px solid var(--primary);
@@ -158,7 +154,6 @@
         }
         .btn-cta:hover { background: var(--primary); color: #000; box-shadow: 0 0 30px var(--glow); transform: translateY(-3px); }
 
-        /* АНІМАЦІЯ ПОЯВИ */
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; will-change: opacity, transform; }
         .fade-in.visible { opacity: 1; transform: translateY(0); }
 
@@ -248,10 +243,8 @@
     </footer>
 
     <script>
-        // Автооновлення року
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Background Grid Animation (Сітка на фоні)
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, dots = [];
@@ -285,7 +278,6 @@
         }
         draw();
 
-        // --- ЛОГІКА ЗБІЛЬШЕННЯ ФОТО (Покращена) ---
         const modal = document.getElementById("galleryModal");
         const modalImg = document.getElementById("modalImg");
         const captionText = document.getElementById("modalCaption");
@@ -293,7 +285,6 @@
 
         galleryItems.forEach(item => {
             item.addEventListener('click', function() {
-                // Надійне витягування URL картинки
                 const bgImg = this.querySelector('.gallery-img').style.backgroundImage;
                 const imgSrc = bgImg.replace(/^url\(["']?/, '').replace(/["']?\)$/, '');
                 const caption = this.querySelector('.gallery-caption').textContent;
@@ -323,7 +314,6 @@
             }
         });
 
-        // Скрипт плавної появи
         document.addEventListener("DOMContentLoaded", function() {
             var faders = document.querySelectorAll('.fade-in');
             var appearOptions = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
