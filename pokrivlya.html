@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -8,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #FFD700; /* Золото */
+            --primary: #FFD700;
             --bg: #050505;
             --card-bg: rgba(20, 20, 20, 0.8);
             --accent: #FF8C00;
@@ -16,7 +17,6 @@
             --glow: 0 0 15px rgba(255, 215, 0, 0.3);
             --radius: 8px;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
@@ -26,20 +26,16 @@
             overflow-x: hidden;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            text-rendering: auto;
+            font-synthesis: none;
+            -webkit-text-size-adjust: 100%;
         }
-
-        /* Кастомний скроллбар */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
-
-        /* Canvas Background */
         #bg-canvas { position: fixed; inset: 0; z-index: -1; opacity: 0.5; }
-
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        /* Header */
         header {
             padding: 20px 0;
             background: rgba(5, 5, 5, 0.9);
@@ -49,17 +45,13 @@
         }
         .nav { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.5rem; color: var(--primary); text-decoration: none; letter-spacing: 2px; transition: 0.3s; }
-        .logo:hover { text-shadow: var(--glow); }
-        
-        /* Кнопка повернення */
+        .logo:hover { text-shadow: none; }
         .btn-back {
-            color: var(--primary); text-decoration: none; font-size: 0.65rem; text-transform: uppercase; 
+            color: var(--primary); text-decoration: none; font-size: 0.65rem; text-transform: uppercase;
             border: 1px solid var(--primary); padding: 5px 10px; border-radius: 4px; transition: 0.3s;
             font-weight: 700; letter-spacing: 1px;
         }
         .btn-back:hover { background: var(--primary); color: #000; box-shadow: var(--glow); }
-
-        /* Hero Секція */
         .hero {
             padding: 150px 0 80px; display: flex; flex-direction: column; align-items: center;
             text-align: center; position: relative; border-bottom: 1px solid var(--grid);
@@ -70,12 +62,9 @@
             animation: scan 4s linear infinite; opacity: 0.3; pointer-events: none;
         }
         @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
-
-        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 6vw, 4.5rem); text-transform: uppercase; color: var(--primary); margin-bottom: 20px; text-shadow: var(--glow); }
+        .hero h1 { font-family: 'Orbitron', sans-serif; font-size: clamp(2rem, 6vw, 4.5rem); text-transform: uppercase; color: var(--primary); margin-bottom: 20px; text-shadow: none; }
         .hero h1 span { color: #fff; }
         .hero p { max-width: 800px; margin: 0 auto; color: #aaa; font-size: 1.1rem; }
-
-        /* Технічна сітка послуг */
         section { padding: 80px 0; }
         .tech-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -92,12 +81,9 @@
         }
         .tech-card:hover { background: rgba(255, 215, 0, 0.02); }
         .tech-card:hover::before { opacity: 1; }
-        
         .tech-card .status { font-size: 0.7rem; color: var(--primary); margin-bottom: 15px; letter-spacing: 2px; }
         .tech-card h3 { font-family: 'Orbitron', sans-serif; color: #fff; margin-bottom: 15px; font-size: 1.2rem; text-transform: uppercase; }
         .tech-card p { font-size: 0.9rem; color: #888; line-height: 1.8; }
-
-        /* Термінал / Інфо Блок */
         .terminal-box {
             background: rgba(20, 20, 20, 0.9); border: 1px solid var(--primary);
             padding: 50px; border-radius: var(--radius); max-width: 900px; margin: 60px auto 0;
@@ -106,8 +92,6 @@
         .terminal-box::before { content: "[ SYSTEM INFO ]"; position: absolute; top: 10px; left: 20px; font-size: 0.6rem; color: var(--primary); }
         .terminal-box h2 { font-family: 'Orbitron', sans-serif; color: var(--primary); margin-bottom: 20px; text-transform: uppercase; }
         .terminal-box p { color: #ccc; margin-bottom: 30px; font-size: 1rem; }
-
-        /* Кнопка CTA */
         .btn-cta {
             display: inline-block; padding: 16px 40px; border: 1px solid var(--primary);
             color: var(--primary); font-family: 'Orbitron', sans-serif; font-weight: 900;
@@ -115,9 +99,7 @@
             transition: 0.3s; background: transparent; cursor: pointer;
         }
         .btn-cta:hover { background: var(--primary); color: #000; box-shadow: 0 0 30px var(--glow); transform: translateY(-3px); }
-
         footer { padding: 40px; text-align: center; border-top: 1px solid var(--grid); color: #444; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-top: 60px; }
-
         @media (max-width: 768px) {
             .hero h1 { font-size: 2.2rem; }
             .tech-grid { grid-template-columns: 1fr; }
@@ -185,10 +167,8 @@
     </footer>
 
     <script>
-        // Автооновлення року
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Background Grid Animation (Той самий космічний ефект)
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width, height, dots = [];
@@ -224,3 +204,4 @@
     </script>
 </body>
 </html>
+```
