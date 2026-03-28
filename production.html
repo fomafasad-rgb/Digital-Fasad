@@ -92,7 +92,7 @@
         .calc-col input:focus, .calc-col select:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
         .range-wrap { display: flex; align-items: center; gap: 12px; }
         .range-wrap input[type="range"] { width: 100%; }
-        .range-value { min-width: 48px; text-align: right; color: var(--primary); font-weight: 700; }
+        .range-value { min-width: 58px; text-align: right; color: var(--primary); font-weight: 700; }
         .calc-summary {
             border-top: 1px solid var(--grid);
             padding-top: 24px;
@@ -232,19 +232,19 @@
                     <div class="calc-row">
                         <div class="calc-col">
                             <label>Довжина (м)</label>
-                            <div class="range-wrap">
-                                <input id="lenRange" type="range" min="1" max="3" step="1" value="1">
-                                <span class="range-value" id="lenValue">1</span>
-                            </div>
-                            <input id="lenInput" type="number" min="1" max="3" step="1" value="1">
+                            <select id="lenInput">
+                                <option value="1">1 м</option>
+                                <option value="2">2 м</option>
+                                <option value="3">3 м</option>
+                            </select>
                         </div>
                         <div class="calc-col">
                             <label>Ширина розгортки (мм)</label>
                             <div class="range-wrap">
-                                <input id="widthRange" type="range" min="100" max="600" step="10" value="250">
-                                <span class="range-value" id="widthValue">250</span>
+                                <input id="widthRange" type="range" min="100" max="1250" step="10" value="1250">
+                                <span class="range-value" id="widthValue">1250</span>
                             </div>
-                            <input id="widthInput" type="number" min="100" max="600" step="10" value="250">
+                            <input id="widthInput" type="number" min="100" max="1250" step="10" value="1250">
                         </div>
                         <div class="calc-col">
                             <label>Покриття</label>
@@ -257,7 +257,7 @@
 
                     <div class="calc-summary">
                         <div>
-                            <div class="summary-text" id="summaryText">Дані: 1 м × 250 мм</div>
+                            <div class="summary-text" id="summaryText">Дані: 1 м × 1250 мм</div>
                             <div id="totalPrice">0 ₴</div>
                         </div>
                         <button class="btn" onclick="sendToTelegram()">Відправити у Telegram</button>
@@ -328,9 +328,7 @@
         const metalThickness = document.getElementById('metalThickness');
         const metalColor = document.getElementById('metalColor');
         const metalFinish = document.getElementById('metalFinish');
-        const lenRange = document.getElementById('lenRange');
         const lenInput = document.getElementById('lenInput');
-        const lenValue = document.getElementById('lenValue');
         const widthRange = document.getElementById('widthRange');
         const widthInput = document.getElementById('widthInput');
         const widthValue = document.getElementById('widthValue');
@@ -350,17 +348,17 @@
         const finishK = { standard: 1.0, premium: 1.08 };
 
         function clampLen(val) {
-            const n = Math.round(parseFloat(val) || 1);
-            return Math.min(3, Math.max(1, n));
+            const n = parseInt(val, 10);
+            if (n === 2) return 2;
+            if (n === 3) return 3;
+            return 1;
         }
 
         function syncInputs() {
             const fixedLen = clampLen(lenInput.value);
-            lenInput.value = fixedLen;
-            lenRange.value = fixedLen;
-            lenValue.textContent = fixedLen;
+            lenInput.value = String(fixedLen);
 
-            const w = Math.min(600, Math.max(100, parseInt(widthInput.value || 250, 10)));
+            const w = Math.min(1250, Math.max(100, parseInt(widthInput.value || 1250, 10)));
             widthInput.value = w;
             widthRange.value = w;
             widthValue.textContent = w;
@@ -368,7 +366,7 @@
 
         function calc() {
             const len = clampLen(lenInput.value);
-            const widthM = (parseInt(widthInput.value || 250, 10)) / 1000;
+            const widthM = (parseInt(widthInput.value || 1250, 10)) / 1000;
             const base = basePrices[metalType.value] || 560;
             const tK = thicknessK[metalThickness.value] || 1.0;
             const cK = colorK[metalColor.value] || 1.0;
@@ -378,11 +376,10 @@
             if (total < 150 && total > 0) total = 150;
 
             totalPrice.textContent = total + " ₴";
-            summaryText.textContent = `Дані: ${len} м × ${parseInt(widthInput.value || 250, 10)} мм`;
+            summaryText.textContent = `Дані: ${len} м × ${parseInt(widthInput.value || 1250, 10)} мм`;
         }
 
-        lenRange.addEventListener('input', () => { lenInput.value = lenRange.value; syncInputs(); calc(); });
-        lenInput.addEventListener('input', () => { syncInputs(); calc(); });
+        lenInput.addEventListener('change', () => { syncInputs(); calc(); });
         widthRange.addEventListener('input', () => { widthInput.value = widthRange.value; syncInputs(); calc(); });
         widthInput.addEventListener('input', () => { syncInputs(); calc(); });
 
