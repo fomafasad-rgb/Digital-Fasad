@@ -596,43 +596,92 @@
         function startGridAnimation() {
             var canvas = document.getElementById('grid-canvas');
             if (!canvas) return;
+
             var ctx = canvas.getContext('2d');
-            var gridSize = 40, rotation = 0, w, h;
+            var w, h;
             var mouseX = 0, mouseY = 0;
             var targetX = 0, targetY = 0;
+            var particles = [];
+            var particleCount = 36;
 
             function resize() {
                 w = canvas.width = window.innerWidth;
                 h = canvas.height = window.innerHeight;
+                particles = [];
+                for (var i = 0; i < particleCount; i++) {
+                    particles.push({
+                        x: Math.random() * w,
+                        y: Math.random() * h,
+                        vx: (Math.random() - 0.5) * 0.35,
+                        vy: (Math.random() - 0.5) * 0.35,
+                        r: 40 + Math.random() * 90,
+                        a: 0.03 + Math.random() * 0.06
+                    });
+                }
             }
+
             window.addEventListener('resize', resize);
             resize();
 
             window.addEventListener('mousemove', function(e) {
-                targetX = (e.clientX - w / 2) * 0.05;
-                targetY = (e.clientY - h / 2) * 0.05;
+                targetX = (e.clientX - w / 2) * 0.015;
+                targetY = (e.clientY - h / 2) * 0.015;
             });
+
+            function drawGlow(p) {
+                var g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+                g.addColorStop(0, 'rgba(255, 215, 0, ' + p.a + ')');
+                g.addColorStop(1, 'rgba(255, 215, 0, 0)');
+                ctx.fillStyle = g;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
 
             function draw() {
                 ctx.clearRect(0, 0, w, h);
+
+                mouseX += (targetX - mouseX) * 0.06;
+                mouseY += (targetY - mouseY) * 0.06;
+
                 ctx.save();
-                mouseX += (targetX - mouseX) * 0.05;
-                mouseY += (targetY - mouseY) * 0.05;
-                ctx.translate(w / 2 + mouseX, h / 2 + mouseY);
-                ctx.rotate(rotation);
-                ctx.strokeStyle = 'rgba(255, 215, 0, 0.05)';
-                ctx.lineWidth = 1;
-                var numLines = 50;
-                for (var i = -numLines; i < numLines; i++) {
-                    ctx.beginPath(); ctx.moveTo(i * gridSize, -numLines * gridSize);
-                    ctx.lineTo(i * gridSize, numLines * gridSize); ctx.stroke();
-                    ctx.beginPath(); ctx.moveTo(-numLines * gridSize, i * gridSize);
-                    ctx.lineTo(numLines * gridSize, i * gridSize); ctx.stroke();
+                ctx.translate(mouseX, mouseY);
+
+                for (var i = 0; i < particles.length; i++) {
+                    var p = particles[i];
+
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    if (p.x < -120) p.x = w + 120;
+                    if (p.x > w + 120) p.x = -120;
+                    if (p.y < -120) p.y = h + 120;
+                    if (p.y > h + 120) p.y = -120;
+
+                    drawGlow(p);
                 }
+
+                for (var a = 0; a < particles.length; a++) {
+                    for (var b = a + 1; b < particles.length; b++) {
+                        var dx = particles[a].x - particles[b].x;
+                        var dy = particles[a].y - particles[b].y;
+                        var dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 220) {
+                            var alpha = (1 - dist / 220) * 0.08;
+                            ctx.strokeStyle = 'rgba(255, 215, 0, ' + alpha + ')';
+                            ctx.lineWidth = 1;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[a].x, particles[a].y);
+                            ctx.lineTo(particles[b].x, particles[b].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+
                 ctx.restore();
-                rotation += 0.0002;
                 requestAnimationFrame(draw);
             }
+
             draw();
         }
 
